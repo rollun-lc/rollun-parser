@@ -2,7 +2,7 @@
     "name": "rollun-com/rollun-parser",
     "description": "Foundation for parsers",
     "type": "library",
-    "license": "BSD",
+    "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "authors": [],
     "config": {
