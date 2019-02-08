@@ -3,6 +3,7 @@
     "description": "Foundation for parsers",
     "type": "library",
     "license": "BSD",
+    "minimum-stability": "stable",
     "authors": [],
     "config": {
         "sort-packages": true
