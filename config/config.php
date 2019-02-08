@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\Dotenv\Dotenv;
+use Zend\ConfigAggregator\ArrayProvider;
 use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
 
@@ -11,6 +12,18 @@ use Zend\ConfigAggregator\PhpFileProvider;
 $appEnv = getenv('APP_ENV');
 
 $aggregator = new ConfigAggregator([
+    \Zend\Cache\ConfigProvider::class,
+    \Zend\Mail\ConfigProvider::class,
+    \Zend\Db\ConfigProvider::class,
+    \Zend\Log\ConfigProvider::class,
+    \Zend\Validator\ConfigProvider::class,
+
+    // Rollun config
+    \rollun\uploader\ConfigProvider::class,
+    \rollun\datastore\ConfigProvider::class,
+    \rollun\logger\ConfigProvider::class,
+    \rollun\callback\ConfigProvider::class,
+
     // Include your config providers here.
     // ...
 
