@@ -68,9 +68,8 @@ class TaskSourceAbstractFactory implements AbstractFactoryInterface
         $queue = $container->get($serviceConfig[self::KEY_QUEUE]);
         $config = $serviceConfig[self::KEY_CONFIG];
         $class = $serviceConfig[self::KEY_CLASS];
-        $requestFactory = new ServerRequestFactory();
 
-        return new $class($queue, $config, $requestFactory);
+        return new $class($queue, $config);
     }
 
     public function canCreate(ContainerInterface $container, $requestedName)
