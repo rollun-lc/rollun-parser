@@ -48,6 +48,7 @@ abstract class AbstractLoader
      * @var ClientInterface
      */
     protected $client;
+
     /**
      * @var LoggerInterface
      */
@@ -177,8 +178,13 @@ abstract class AbstractLoader
      */
     protected function createFilename()
     {
-        $dirName = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . self::STORAGE_DIR
-            . DIRECTORY_SEPARATOR . $this->documentQueue->getName();
+        $storageDir = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . self::STORAGE_DIR;
+
+        if (!file_exists($storageDir)) {
+            throw new \RuntimeException("Directory '$storageDir' doesn't exist");
+        }
+
+        $dirName = $storageDir . DIRECTORY_SEPARATOR . $this->documentQueue->getName();
 
         if (!file_exists($dirName)) {
             mkdir($dirName);
