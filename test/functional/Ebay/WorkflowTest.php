@@ -65,6 +65,27 @@ class WorkflowTest extends TestCase
         $this->assertTrue(true);
     }
 
+    public function testSerializeLoader()
+    {
+        $proxyManagerUri = getenv('PROXY_MANAGER_URI');
+        $proxyDataStore = new HttpClient(new Client(), $proxyManagerUri);
+
+        $documentQueue = new QueueClient(new FileAdapter('/tmp/test'), 'test');
+        $validator = new StatusOk();
+        $loader = new RollunLoader($proxyDataStore, $documentQueue, [], $validator);
+
+        $this->assertTrue(boolval(unserialize(serialize($loader))));
+    }
+
+    public function testSerializeParser()
+    {
+        /** @var DataStoresInterface|MockObject $parseResultDsMock */
+        $parseResultDsMock = $this->getMockBuilder(DataStoresInterface::class)->getMock();
+        $parser = new RollunParser($parseResultDsMock);
+
+        $this->assertTrue(boolval(unserialize(serialize($parser))));
+    }
+
     protected function rrmdir($dir)
     {
         if (is_dir($dir)) {
