@@ -41,7 +41,7 @@ class TaskSource extends QueueFiller
         array $config,
         ?LoggerInterface $logger = null
     ) {
-        parent::__construct($queue, $logger);
+        parent::__construct($queue);
         $this->config = $config;
     }
 

@@ -7,7 +7,6 @@
 namespace rollun\parser\Factory;
 
 use Interop\Container\ContainerInterface;
-use rollun\callback\Callback\Interrupter\Factory\InterruptAbstractFactoryAbstract;
 use rollun\parser\TaskSource;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
@@ -39,11 +38,11 @@ use Zend\ServiceManager\Factory\AbstractFactoryInterface;
  * Class AbstractLoaderFactory
  * @package Ebay\Parser\Factory
  */
-class TaskSourceAbstractFactory extends InterruptAbstractFactoryAbstract
+class TaskSourceAbstractFactory implements AbstractFactoryInterface
 {
     const KEY_CLASS = 'class';
 
-    const DEFAULT_CLASS = TaskSource::class;
+    const BASE_CLASS = TaskSource::class;
 
     const KEY_QUEUE = 'queue';
 
@@ -70,5 +69,16 @@ class TaskSourceAbstractFactory extends InterruptAbstractFactoryAbstract
         $class = $serviceConfig[self::KEY_CLASS];
 
         return new $class($queue, $config);
+    }
+
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+        $class = $container->get('config')[self::class][$requestedName][self::KEY_CLASS] ?? null;
+
+        if (is_a($class, self::BASE_CLASS, true)) {
+            return true;
+        }
+
+        return false;
     }
 }
