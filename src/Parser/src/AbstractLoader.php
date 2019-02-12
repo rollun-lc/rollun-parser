@@ -112,7 +112,7 @@ abstract class AbstractLoader
             ]);
         } catch (RequestException $e) {
             $response = $e->getResponse();
-            $this->logger->error('Failed to fetch http response using Guzzlehttp', [
+            $this->logger->warning('Failed to fetch http response using Guzzlehttp', [
                 'exception' => $e,
                 'uri' => $request->getUri()->__toString(),
                 'proxy' => $proxy,
