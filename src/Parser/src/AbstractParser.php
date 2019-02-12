@@ -29,7 +29,7 @@ abstract class AbstractParser
      * @throws \ReflectionException
      */
     public function __construct(
-        DataStoresInterface $parseResultDataStore,
+        DataStoresInterface $parseResultDataStore = null,
         LoggerInterface $logger = null
     ) {
         $this->parseResultDataStore = $parseResultDataStore;

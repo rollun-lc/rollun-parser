@@ -124,7 +124,7 @@ abstract class AbstractLoader
         $this->proxyDataStore->update($proxy);
 
         if ($this->responseValidator->isValid($response)) {
-            $this->saveDocument($response);
+            $this->saveDocument($response, $request);
         } else {
             throw new \RuntimeException("Response is not valid. {$this->responseValidator->getMessages()}");
         }
@@ -146,7 +146,7 @@ abstract class AbstractLoader
         return $request;
     }
 
-    protected function saveDocument(ResponseInterface $response)
+    protected function saveDocument(ResponseInterface $response, ServerRequestInterface $request)
     {
         try {
             $data = $response->getBody()->getContents();
