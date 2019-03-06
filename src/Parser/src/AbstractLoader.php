@@ -152,6 +152,9 @@ abstract class AbstractLoader
             $data = $response->getBody()->getContents();
             $filename = $this->createFilename();
             file_put_contents($filename, $data);
+            if (!file_exists($filename)) {
+                throw new \RuntimeException("File $filename with page data $data not exsist.");
+            }
             $message = Message::createInstance(QueueFiller::serializeMessage(['filepath' => $filename]));
             $this->documentQueue->addMessage($message);
         } catch (\Throwable $t) {
