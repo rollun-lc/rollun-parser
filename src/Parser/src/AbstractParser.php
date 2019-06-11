@@ -6,69 +6,109 @@
 
 namespace rollun\parser;
 
+
+use Jaeger\Tag\StringTag;
+use Jaeger\Tracer\Tracer;
+use phpQuery;
 use Psr\Log\LoggerInterface;
-use rollun\datastore\DataStore\Interfaces\DataStoresInterface;
 use rollun\dic\InsideConstruct;
+use Zend\Validator\ValidatorInterface;
 
-abstract class AbstractParser
+class AbstractParser
 {
+    public const HTML_DOCUMENTS_ERROR_PAGE_DIR = '/data/html/documents/errorPage/';
     /**
-     * @var DataStoresInterface
+     * @var callable[]
      */
-    protected $parseResultDataStore;
-
+    private $strategies;
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
+    /**
+     * @var Tracer
+     */
+    private $tracer;
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+    /**
+     * @var string
+     */
+    private $name;
+
+    public function __construct(
+        string $name,
+        array $strategies,
+        ValidatorInterface $validator,
+        LoggerInterface $logger = null,
+        Tracer $tracer = null
+    ) {
+        $this->name = $name;
+        $this->strategies = $strategies;
+        $this->validator = $validator;
+        InsideConstruct::init([
+            'logger' => LoggerInterface::class,
+            'tracer' => Tracer::class,
+        ]);
+    }
 
     /**
-     * AbstractParser constructor.
-     * @param DataStoresInterface $parseResultDataStore
-     * @param LoggerInterface|null $logger
-     * @throws \ReflectionException
+     * @param string $htmData
+     * @return mixed
      */
-    public function __construct(
-        DataStoresInterface $parseResultDataStore = null,
-        LoggerInterface $logger = null
-    ) {
-        $this->parseResultDataStore = $parseResultDataStore;
-        InsideConstruct::setConstructParams(['logger' => LoggerInterface::class]);
+    public function __invoke(string $htmData)
+    {
+        $span = $this->tracer->start(sprintf('[%s]%s::__invoke', $this->name, self::class));
+        $result = $this->parse($htmData);
+        $this->tracer->finish($span);
+        return $result;
     }
 
-    public function __invoke($data)
+    /**
+     * @param string $htmlData
+     * @return mixed
+     */
+    public function parse(string $htmlData)
     {
-        if (!$this->isValid($data)) {
-            throw new \RuntimeException('Invalid data for parser');
+        //TODO: refactor exception type
+        $span = $this->tracer->start(sprintf('[%s]%s::parse', $this->name, self::class));
+        $document = PhpQuery::newDocument($htmlData);
+        foreach ($this->strategies as $strategy) {
+            $data = $strategy->parse($document);
+            if ($this->validator->isValid($data)) {
+                $this->tracer->finish($span);
+                return $data;
+            }
+            /** @noinspection DisconnectedForeachInstructionInspection */
+            $this->logger->debug('Parser {name} strategy {strategy} return not valid result. Reason: {messages}', [
+                'name' => $this->name,
+                'strategy' => get_class($strategy),
+                'messages' => $this->validator->getMessages()
+            ]);
         }
+        $htmlDirPath = sprintf('%s%s%s', getcwd(), self::HTML_DOCUMENTS_ERROR_PAGE_DIR, $this->name);
 
-        $document = file_get_contents($data['filepath']);
-        $records = $this->parse($document);
-        $this->saveResult($records);
-        unlink($data['filepath']);
+        if (is_dir($htmlDirPath) && !mkdir($htmlDirPath) && !is_dir($htmlDirPath)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $htmlDirPath));
+        }
+        $htmlFilePath = sprintf('%s/%s.html', $htmlDirPath, uniqid(time() . '_', true));
+        @file_put_contents($htmlFilePath, $htmlData);
+        $span->addTag(new StringTag('htmlFilePath', $htmlFilePath));
+        throw new \RuntimeException("Not found strategy for valid parse this document. $htmlFilePath");
     }
-
-    protected function isValid($data)
-    {
-        return isset($data['filepath']) && file_exists($data['filepath']);
-    }
-
-    abstract protected function saveResult($records);
-
-    abstract public function parse(string $data): array;
-
-    abstract public function canParse(string $data): bool;
 
     public function __sleep()
     {
-        return ['parseResultDataStore'];
+        return ['strategies', 'validator', 'name'];
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function __wakeup()
     {
-        InsideConstruct::initWakeup(['logger' => LoggerInterface::class]);
+        InsideConstruct::initWakeup([
+            'logger' => LoggerInterface::class,
+            'tracer' => Tracer::class,
+        ]);
     }
 }
