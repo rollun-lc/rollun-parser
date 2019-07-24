@@ -72,8 +72,11 @@ class AbstractParser
      */
     public function parse(string $htmlData)
     {
-        //TODO: refactor exception type
         $span = $this->tracer->start(sprintf('[%s]%s::parse', $this->name, self::class));
+        if ($htmlData === '') {
+            throw new \RuntimeException('Html doc is empty.');
+        }
+
         $document = PhpQuery::newDocument($htmlData);
         foreach ($this->strategies as $strategy) {
             $data = $strategy->parse($document);
@@ -96,7 +99,11 @@ class AbstractParser
         $htmlFilePath = sprintf('%s/%s.html', $htmlDirPath, uniqid(time() . '_', true));
         @file_put_contents($htmlFilePath, $htmlData);
         $span->addTag(new StringTag('htmlFilePath', $htmlFilePath));
-        throw new \RuntimeException("Not found strategy for valid parse this document. $htmlFilePath");
+
+        if (strpos($htmlData, '</body>') !== false) {
+            throw new \RuntimeException("Not found strategy for valid parse this document. $htmlFilePath");
+        }
+        throw new \RuntimeException('Not found end of body.');
     }
 
     public function __sleep()
