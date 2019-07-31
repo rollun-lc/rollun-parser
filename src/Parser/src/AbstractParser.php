@@ -73,7 +73,7 @@ class AbstractParser
     public function parse(string $htmlData)
     {
         $span = $this->tracer->start(sprintf('[%s]%s::parse', $this->name, self::class));
-        if ($htmlData === '') {
+        if (strlen($htmlData) <= 10) {
             throw new \RuntimeException('Html doc is empty.');
         }
 
@@ -91,16 +91,20 @@ class AbstractParser
                 'messages' => $this->validator->getMessages()
             ]);
         }
-        $htmlDirPath = sprintf('%s%s%s', getcwd(), self::HTML_DOCUMENTS_ERROR_PAGE_DIR, $this->name);
-
-        if (is_dir($htmlDirPath) && !mkdir($htmlDirPath) && !is_dir($htmlDirPath)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $htmlDirPath));
-        }
-        $htmlFilePath = sprintf('%s/%s.html', $htmlDirPath, uniqid(time() . '_', true));
-        @file_put_contents($htmlFilePath, $htmlData);
-        $span->addTag(new StringTag('htmlFilePath', $htmlFilePath));
 
         if (strpos($htmlData, '</body>') !== false) {
+            $htmlDirPath = sprintf('%s%s%s', getcwd(), self::HTML_DOCUMENTS_ERROR_PAGE_DIR, $this->name);
+
+            if (is_dir($htmlDirPath) && !mkdir($htmlDirPath) && !is_dir($htmlDirPath)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $htmlDirPath));
+            }
+            $htmlFilePath = sprintf('%s/%s.html', $htmlDirPath, uniqid(time() . '_', true));
+            @file_put_contents($htmlFilePath, $htmlData);
+            $span->addTag(new StringTag('htmlFilePath', $htmlFilePath));
+
+            $this->logger->critical('Not found strategy for valid parse this document.', [
+                'htmlFilePath' => $htmlFilePath,
+            ]);
             throw new \RuntimeException("Not found strategy for valid parse this document. $htmlFilePath");
         }
         throw new \RuntimeException('Not found end of body.');
