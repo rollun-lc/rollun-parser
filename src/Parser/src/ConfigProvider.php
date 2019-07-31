@@ -9,7 +9,6 @@ namespace rollun\parser;
 use rollun\datastore\DataStore\Factory\DataStoreAbstractFactory;
 use rollun\datastore\DataStore\Factory\HttpClientAbstractFactory;
 use rollun\datastore\DataStore\HttpClient;
-use rollun\parser\Factory\LoaderAbstractFactory;
 use rollun\parser\Factory\ParserAbstractFactory;
 use rollun\parser\Factory\TaskSourceAbstractFactory;
 
@@ -22,7 +21,6 @@ class ConfigProvider
         return [
             'dependencies' => [
                 'abstract_factories' => [
-                    LoaderAbstractFactory::class,
                     TaskSourceAbstractFactory::class,
                     ParserAbstractFactory::class,
                 ],
