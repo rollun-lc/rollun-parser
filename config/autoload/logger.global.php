@@ -28,38 +28,12 @@ return [
             ],
             'writers' => [
                 [
-                    'name' => DbWriter::class,
+                    'name' => Stream::class,
                     'options' => [
-                        'db' => 'db',
-                        'table' => 'logs',
-                        'column' => [
-                            'id' => 'id',
-                            'timestamp' => 'timestamp',
-                            'message' => 'message',
-                            'level' => 'level',
-                            'priority' => 'priority',
-                            'context' => 'context',
-                            'lifecycle_token' => 'lifecycle_token',
-                        ],
-                        'filters' => [
-                            [
-                                'name' => 'priority',
-                                'options' => [
-                                    'operator' => getenv('APP_DEBUG') == 'true' ? '<=' : '<',
-                                    'priority' => 7,
-                                ],
-                            ],
-                        ],
+                        'stream' => 'php://stdout',
                         'formatter' => ContextToString::class,
                     ],
                 ],
-                //                [
-                //                    'name' => Stream::class,
-                //                    'options' => [
-                //                        'stream' => 'php://stdout',
-                //                        'formatter' => ContextToString::class,
-                //                    ],
-                //                ],
             ],
         ],
     ],
