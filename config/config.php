@@ -21,6 +21,7 @@ $aggregator = new ConfigAggregator([
     // Rollun config
     \rollun\uploader\ConfigProvider::class,
     \rollun\datastore\ConfigProvider::class,
+    \rollun\tracer\ConfigProvider::class,
     \rollun\logger\ConfigProvider::class,
     \rollun\callback\ConfigProvider::class,
 

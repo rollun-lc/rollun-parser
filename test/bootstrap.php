@@ -4,7 +4,7 @@ global $argv;
 use PHPUnit\Framework\Error\Deprecated;
 use rollun\logger\LifeCycleToken;
 
-error_reporting(E_ALL);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 Deprecated::$enabled = false;
 
 // Change to the project root, to simplify resolving paths
