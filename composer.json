@@ -26,9 +26,6 @@
     "symfony/dotenv": "^4.1",
     "zendframework/zend-config-aggregator": "^1.0"
   },
-  "replace": {
-    "rollun-com/rollun-installer": "4.0.8"
-  },
   "autoload": {
     "psr-4": {
       "rollun\\parser\\": "src/Parser/src",
