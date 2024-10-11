@@ -1,0 +1,24 @@
+services:
+  nginx:
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 8080:80
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build:
+      context: docker/php-fpm
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/app
+    environment:
+      APP_ENV: "dev"
+      PHP_IDE_CONFIG: serverName=rollun-parser
+
+volumes:
+  mysql:

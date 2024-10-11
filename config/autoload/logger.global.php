@@ -1,40 +1,15 @@
 <?php
-/**
- * @copyright Copyright © 2014 Rollun LC (http://rollun.com/)
- * @license LICENSE.md New BSD License
- */
 
 use Psr\Log\LoggerInterface;
-use rollun\logger\Formatter\ContextToString;
-use rollun\logger\Processor\ExceptionBacktrace;
-use rollun\logger\Processor\IdMaker;
-use rollun\logger\Processor\LifeCycleTokenInjector;
-use Zend\Log\Writer\Db as DbWriter;
-use Zend\Log\Writer\Stream;
+use Psr\Log\NullLogger;
 
 return [
-    'log' => [
-        LoggerInterface::class => [
-            'processors' => [
-                [
-                    'name' => IdMaker::class,
-                ],
-                [
-                    'name' => ExceptionBacktrace::class,
-                ],
-                [
-                    'name' => LifeCycleTokenInjector::class,
-                ],
-            ],
-            'writers' => [
-                [
-                    'name' => Stream::class,
-                    'options' => [
-                        'stream' => 'php://stdout',
-                        'formatter' => ContextToString::class,
-                    ],
-                ],
-            ],
+    'dependencies' => [
+        'aliases' => [
+            LoggerInterface::class => NullLogger::class
         ],
-    ],
+        'invokables' => [
+            NullLogger::class,
+        ]
+    ]
 ];
