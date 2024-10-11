@@ -1,19 +1,16 @@
 <?php
 
-
 namespace HttpClientTest\Example\Parser\Example1;
-
 
 use HttpClient\Example\Parser\Example1\ParserStrategyDesktopLayout;
 use HttpClient\Example\Parser\Example1\ParserStrategyMobileLayout;
 use HttpClient\Example\Parser\Example1\ParserValidator;
 use HttpClient\Example\Parser\Example1\SimpleParser;
 use HttpClient\Example\Parser\Example1\UsageExample;
-use Monolog\Test\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SimpleParserTest extends TestCase
 {
-
     protected function createObject()
     {
         return new SimpleParser(
@@ -38,8 +35,6 @@ class SimpleParserTest extends TestCase
         $html = '<html lang="en"><body><item class="desktop">ItemName</body></html>';
         $parsedData = $parser->__invoke($html);
         $this->assertEquals(['ItemName'], $parsedData);
-
-
     }
 
     public function testWithMobileLayoutHtml()
@@ -49,7 +44,6 @@ class SimpleParserTest extends TestCase
         $html = '<html lang="en"><body><item class="mobile">ItemName</body></html>';
         $parsedData = $parser->__invoke($html);
         $this->assertEquals(['ItemName'], $parsedData);
-
     }
 
     public function testWithUnknownLayoutHtml()
@@ -64,8 +58,5 @@ class SimpleParserTest extends TestCase
             $message = $e->getMessage();
         }
         $this->assertEquals('Not found strategy for valid parse this document.', $message);
-
     }
-
-
 }

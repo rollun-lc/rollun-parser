@@ -13,7 +13,6 @@
     "electrolinux/phpquery": "^0.9.6",
     "fzaninotto/faker": "^1.8",
     "guzzlehttp/guzzle": "^6.3",
-    "monolog/monolog": "^2.1",
     "rollun-com/rollun-callback": "^6.0",
     "rollun-com/rollun-datastore": "^6.6",
     "rollun-com/rollun-dic": "^3.3",
