@@ -3,8 +3,8 @@
 
 namespace HttpClient\LoaderPluginManager;
 
-use Zend\Expressive\Container\Exception\InvalidServiceException;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 
 class LoaderPluginManager extends AbstractPluginManager
 {

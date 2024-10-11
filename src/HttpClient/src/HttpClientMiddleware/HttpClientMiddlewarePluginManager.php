@@ -4,8 +4,8 @@ namespace HttpClient\HttpClientMiddleware;
 
 use Closure;
 use HttpClient\HttpClientMiddleware\Factory\HttpClientMiddlewareAbstractFactory;
-use Zend\Expressive\Container\Exception\InvalidServiceException;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 
 /**
  * Class HttpClientMiddlewarePluginManager

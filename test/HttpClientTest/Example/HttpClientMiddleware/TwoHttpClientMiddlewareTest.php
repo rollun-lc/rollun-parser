@@ -8,7 +8,6 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\ServerRequest;
-use HttpClient\Example\HttpClientMiddleware\AmazonProxyHttpClientMiddleware;
 use HttpClient\Example\HttpClientMiddleware\FirstHttpClientMiddleware;
 use HttpClient\Example\HttpClientMiddleware\SecondHttpClientMiddleware;
 use PHPUnit\Framework\TestCase;
