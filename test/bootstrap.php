@@ -3,7 +3,6 @@
 global $argv;
 
 use PHPUnit\Framework\Error\Deprecated;
-use Psr\Log\LoggerInterface;
 
 // Change to the project root, to simplify resolving paths
 chdir(dirname(__DIR__));
