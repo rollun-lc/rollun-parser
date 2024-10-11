@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf3cf5944f1bba1ffc9c0edef3470d30",
+    "content-hash": "416e5166bd0aace6f8d83d93baf21b65",
     "packages": [
         {
             "name": "ajgl/csv-rfc",
@@ -667,50 +667,6 @@
                 "search"
             ],
             "time": "2019-07-19T14:48:24+00:00"
-        },
-        {
-            "name": "electrolinux/phpquery",
-            "version": "0.9.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/electrolinux/phpquery.git",
-                "reference": "90029e2acffebebdb6e309509c778fe34e8028ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/electrolinux/phpquery/zipball/90029e2acffebebdb6e309509c778fe34e8028ba",
-                "reference": "90029e2acffebebdb6e309509c778fe34e8028ba",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "phpQuery/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "didier Belot",
-                    "homepage": "https://github.com/electrolinux/phpquery",
-                    "role": "Packager, maintainer"
-                },
-                {
-                    "name": "Tobiasz Cudnik",
-                    "email": "tobiasz.cudnik@gmail.com",
-                    "homepage": "https://github.com/TobiaszCudnik",
-                    "role": "Developer"
-                }
-            ],
-            "description": "phpQuery is a server-side, chainable, CSS3 selector driven Document Object Model (DOM) API based on jQuery JavaScript Library",
-            "homepage": "http://code.google.com/p/phpquery/",
-            "time": "2023-05-02T18:27:16+00:00"
         },
         {
             "name": "endclothing/prometheus_client_php",

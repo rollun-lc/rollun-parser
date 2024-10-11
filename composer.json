@@ -10,7 +10,6 @@
   },
   "require": {
     "php": "^7.2",
-    "electrolinux/phpquery": "^0.9.6",
     "guzzlehttp/guzzle": "^6.3",
     "rollun-com/rollun-callback": "^6.0",
     "rollun-com/rollun-datastore": "^6.6",
