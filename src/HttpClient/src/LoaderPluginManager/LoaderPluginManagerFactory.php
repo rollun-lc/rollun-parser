@@ -4,8 +4,8 @@
 namespace HttpClient\LoaderPluginManager;
 
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use rollun\callback\Middleware\CallablePluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
 
 class LoaderPluginManagerFactory implements FactoryInterface
 {

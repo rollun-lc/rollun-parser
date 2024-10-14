@@ -1,73 +1,37 @@
 <?php
 
-
 namespace HttpClient\Example\Loader\Example3;
-
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Cookie\CookieJarInterface;
 use GuzzleHttp\Psr7\ServerRequest;
+use Laminas\Validator\ValidatorInterface;
 use Psr\Http\Message\ResponseInterface;
 use rollun\datastore\DataStore\Interfaces\DataStoreInterface;
-use Zend\Validator\ValidatorInterface;
 
 class AmazonLoader
 {
-    /**
-     * @var ClientInterface
-     */
-    protected $httpClient;
-
-    /**
-     * @var ClientInterface
-     */
-    protected $zipCodeHttpClient;
-
-    /**
-     * @var ServerRequest
-     */
-    protected $zipCodeRequest;
-
-    /**
-     * @var ValidatorInterface
-     */
-    protected $responseValidator;
-
-    /**
-     * @var DataStoreInterface
-     */
-    protected $proxyDataStore;
-
-    /**
-     * @var DataStoreInterface
-     */
-    protected $proxyStatsDataStore;
+    private CookieJarInterface $cookieJar;
 
     /**
      * AmazonLoader constructor.
      *
-     * @param ClientInterface    $httpClient
-     * @param ClientInterface    $zipCodeHttpClient
-     * @param ServerRequest      $zipCodeRequest
+     * @param ClientInterface $httpClient
+     * @param ClientInterface $zipCodeHttpClient
+     * @param ServerRequest $zipCodeRequest
      * @param ValidatorInterface $responseValidator
      * @param DataStoreInterface $proxyDataStore
      * @param DataStoreInterface $proxyStatsDataStore
      */
     public function __construct(
-        ClientInterface $httpClient,
-        ClientInterface $zipCodeHttpClient,
-        ServerRequest $zipCodeRequest,
-        ValidatorInterface $responseValidator,
-        DataStoreInterface $proxyDataStore,
-        DataStoreInterface $proxyStatsDataStore
-    ) {
-        $this->httpClient = $httpClient;
-        $this->zipCodeHttpClient = $zipCodeHttpClient;
-        $this->zipCodeRequest = $zipCodeRequest;
-        $this->responseValidator = $responseValidator;
-        $this->proxyDataStore = $proxyDataStore;
-        $this->proxyStatsDataStore = $proxyStatsDataStore;
-    }
+        protected ClientInterface $httpClient,
+        protected ClientInterface $zipCodeHttpClient,
+        protected ServerRequest $zipCodeRequest,
+        protected ValidatorInterface $responseValidator,
+        protected DataStoreInterface $proxyDataStore,
+        protected DataStoreInterface $proxyStatsDataStore
+    ){}
 
     /**
      * @param ServerRequest $request
@@ -89,7 +53,7 @@ class AmazonLoader
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function authenticate()
+    protected function authenticate(): void
     {
         $options = [
             'cookies' => $this->cookieJar,

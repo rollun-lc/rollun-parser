@@ -5,7 +5,7 @@ namespace HttpClient\HttpClientMiddleware\Factory;
 use HttpClient\HttpClientMiddleware\HttpClientMiddlewareInterface;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * Class HttpClientMiddlewareAbstractFactory
@@ -27,7 +27,7 @@ abstract class HttpClientMiddlewareAbstractFactory implements AbstractFactoryInt
      *
      * @return bool
      */
-    public function canCreate(ContainerInterface $container, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName): bool
     {
         $config = $container->get('config');
         if (isset($config[static::class][$requestedName])) {

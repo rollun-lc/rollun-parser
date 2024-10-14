@@ -1,4 +1,4 @@
-FROM maxrollundev/php-fpm-dev-7.2
+FROM maxrollundev/php-fpm-dev-8.0
 
 USER root
 

@@ -4,27 +4,15 @@
 namespace HttpClient\LoaderPluginManager;
 
 use Exception;
+use Laminas\ServiceManager\PluginManagerInterface;
 use rollun\dic\InsideConstruct;
-use Zend\ServiceManager\PluginManagerInterface;
 
 class LoaderServiceResolverRandom
 {
-    /**
-     * @var PluginManagerInterface
-     */
-    protected $loaderPluginManager;
-
-    /**
-     * @var array
-     */
-    protected $availableLoaderServiceList;
-
     public function __construct(
-        PluginManagerInterface $loaderPluginManager,
-        array $availableLoaderServiceList
+        protected PluginManagerInterface $loaderPluginManager,
+        protected array $availableLoaderServiceList
     ) {
-        $this->loaderPluginManager = $loaderPluginManager;
-        $this->availableLoaderServiceList = $availableLoaderServiceList;
     }
 
     public function __invoke(): LoaderInterface

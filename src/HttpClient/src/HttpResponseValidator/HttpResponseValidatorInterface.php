@@ -1,13 +1,9 @@
 <?php
 
-
 namespace HttpClient\HttpResponseValidator;
 
-
-use GuzzleHttp\Exception\RequestException;
-use Zend\Validator\ValidatorInterface;
+use Laminas\Validator\ValidatorInterface;
 
 interface HttpResponseValidatorInterface extends ValidatorInterface
 {
-    //public function getRequestException(): RequestException;
 }

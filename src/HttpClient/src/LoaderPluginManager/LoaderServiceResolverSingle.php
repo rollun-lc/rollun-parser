@@ -4,8 +4,8 @@
 namespace HttpClient\LoaderPluginManager;
 
 use Exception;
+use Laminas\ServiceManager\PluginManagerInterface;
 use rollun\dic\InsideConstruct;
-use Zend\ServiceManager\PluginManagerInterface;
 
 /**
  * Class LoaderServiceResolverSingle
@@ -15,27 +15,15 @@ use Zend\ServiceManager\PluginManagerInterface;
 class LoaderServiceResolverSingle
 {
     /**
-     * @var PluginManagerInterface
-     */
-    protected $loaderPluginManager;
-
-    /**
-     * @var string
-     */
-    protected $loaderServiceName;
-
-    /**
      * LoaderServiceResolverSingle constructor.
      *
      * @param PluginManagerInterface $loaderPluginManager
      * @param string                 $loaderServiceName
      */
     public function __construct(
-        PluginManagerInterface $loaderPluginManager,
-        string $loaderServiceName
+        protected PluginManagerInterface $loaderPluginManager,
+        protected string $loaderServiceName
     ) {
-        $this->loaderPluginManager = $loaderPluginManager;
-        $this->loaderServiceName = $loaderServiceName;
     }
 
     public function __invoke(): LoaderInterface

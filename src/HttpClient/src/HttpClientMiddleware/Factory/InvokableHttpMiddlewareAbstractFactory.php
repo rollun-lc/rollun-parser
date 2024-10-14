@@ -5,9 +5,7 @@ namespace HttpClient\HttpClientMiddleware\Factory;
 use HttpClient\HttpClientMiddleware\HttpClientMiddlewareInterface;
 use HttpClient\HttpClientMiddleware\UserAgentHttpClientMiddleware;
 use Interop\Container\ContainerInterface;
-use InvalidArgumentException;
-use ReflectionException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * ...

@@ -1,20 +1,18 @@
 <?php
 
-
 namespace HttpClient\Example\Parser\Example1;
 
-use Zend\Validator\ValidatorInterface;
+
+use Laminas\Validator\ValidatorInterface;
 
 class SimpleParser
 {
     /**
      * @var callable[]
      */
-    private $strategies;
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    private array $strategies;
+
+    private ValidatorInterface $validator;
 
     public function __construct(
         array $strategies,

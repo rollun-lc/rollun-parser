@@ -1,16 +1,15 @@
 <?php
 
-
 namespace HttpClient\Example\Parser\Example1;
 
 
-use Zend\Validator\ValidatorInterface;
+use Laminas\Validator\ValidatorInterface;
 
 class ParserValidator implements ValidatorInterface
 {
-    protected $messages;
+    protected array $messages;
 
-    public function isValid($value)
+    public function isValid($value): bool
     {
         $this->messages = [];
         if(!is_array($value)) {
@@ -26,7 +25,7 @@ class ParserValidator implements ValidatorInterface
         return true;
     }
 
-    public function getMessages()
+    public function getMessages(): array
     {
         return $this->messages;
     }

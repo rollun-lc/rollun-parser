@@ -8,23 +8,18 @@ use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Jaeger\Tracer\Tracer;
+use Laminas\Validator\ValidatorInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use ReflectionException;
 use rollun\dic\InsideConstruct;
 use Throwable;
-use Zend\Validator\ValidatorInterface;
 use function GuzzleHttp\Promise\promise_for;
 use function GuzzleHttp\Promise\rejection_for;
 
 class ResponseValidatorHttpClientMiddleware extends AbstractHttpClientMiddleware
 {
-    /**
-     * @var ValidatorInterface[]
-     */
-    protected $responseValidators;
-
     /**
      * ResponseValidatorHttpClientMiddleware constructor.
      *
@@ -35,11 +30,10 @@ class ResponseValidatorHttpClientMiddleware extends AbstractHttpClientMiddleware
      * @throws ReflectionException
      */
     public function __construct(
-        array $responseValidators,
+        protected array $responseValidators,
         LoggerInterface $logger = null,
         Tracer $tracer = null
     ) {
-        $this->responseValidators = $responseValidators;
         InsideConstruct::setConstructParams([
             'logger' => LoggerInterface::class,
             'tracer' => Tracer::class

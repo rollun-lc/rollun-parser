@@ -9,7 +9,7 @@ use GuzzleHttp\HandlerStack;
 use HttpClient\HttpClientMiddleware\HttpClientMiddlewarePluginManager;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use function GuzzleHttp\choose_handler;
 
 class HttpClientAbstractFactory implements AbstractFactoryInterface

@@ -8,31 +8,11 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Cookie\CookieJarInterface;
 use GuzzleHttp\Psr7\ServerRequest;
+use Laminas\Validator\ValidatorInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Validator\ValidatorInterface;
 
 class LoaderWithAuthentication
 {
-    /**
-     * @var ClientInterface
-     */
-    protected $httpClient;
-
-    /**
-     * @var ClientInterface
-     */
-    protected $authenticationHttpClient;
-
-    /**
-     * @var ServerRequest
-     */
-    protected $authenticationRequest;
-
-    /**
-     * @var ValidatorInterface
-     */
-    protected $responseValidator;
-
     /**
      * @var CookieJarInterface
      */
@@ -47,16 +27,11 @@ class LoaderWithAuthentication
      * @param ValidatorInterface $responseValidator
      */
     public function __construct(
-        ClientInterface $httpClient,
-        ClientInterface $authenticationHttpClient,
-        ServerRequest $authenticationRequest,
-        ValidatorInterface $responseValidator
-    ) {
-        $this->httpClient = $httpClient;
-        $this->authenticationHttpClient = $authenticationHttpClient;
-        $this->authenticationRequest = $authenticationRequest;
-        $this->responseValidator = $responseValidator;
-    }
+        protected ClientInterface $httpClient,
+        protected ClientInterface $authenticationHttpClient,
+        protected ServerRequest $authenticationRequest,
+        protected ValidatorInterface $responseValidator
+    ) {}
 
     /**
      * @param ServerRequest $request

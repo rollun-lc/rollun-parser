@@ -1,10 +1,9 @@
 <?php
 
-
 namespace HttpClientTest\HttpClientMiddleware;
 
+use Laminas\Validator\ValidatorInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Validator\ValidatorInterface;
 
 class GoodBodyBadStatusCodeResponseValidator implements ValidatorInterface
 {

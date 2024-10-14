@@ -6,8 +6,8 @@ use HttpClient\HttpClientMiddleware\HttpClientMiddlewareInterface;
 use HttpClient\HttpClientMiddleware\UserAgentHttpClientMiddleware;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use ReflectionException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * ...

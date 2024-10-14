@@ -1,14 +1,11 @@
 <?php
 
-
 namespace rollun\parser;
 
-
-use Jaeger\Tag\StringTag;
 use Jaeger\Tracer\Tracer;
+use Laminas\Validator\ValidatorInterface;
 use Psr\Log\LoggerInterface;
 use rollun\dic\InsideConstruct;
-use Zend\Validator\ValidatorInterface;
 
 class Parser implements StrategyInterface
 {

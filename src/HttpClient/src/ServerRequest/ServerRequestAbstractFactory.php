@@ -6,7 +6,7 @@ namespace HttpClient\ServerRequest;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 class ServerRequestAbstractFactory implements AbstractFactoryInterface
 {

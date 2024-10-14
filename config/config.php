@@ -1,21 +1,22 @@
 <?php
 
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\PhpFileProvider;
 use Symfony\Component\Dotenv\Dotenv;
-use Zend\ConfigAggregator\ArrayProvider;
-use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\ConfigAggregator\PhpFileProvider;
 
 // Make environment variables stored in .env accessible via getenv(), $_ENV or $_SERVER.
-(new Dotenv())->load('.env');
+if(file_exists('.env')) {
+    (new Dotenv())->usePutenv()->load('.env');
+}
 
 // Determine application environment ('dev', 'test' or 'prod').
 $appEnv = getenv('APP_ENV');
 
 $aggregator = new ConfigAggregator([
-    \Zend\Cache\ConfigProvider::class,
-    \Zend\Mail\ConfigProvider::class,
-    \Zend\Db\ConfigProvider::class,
-    \Zend\Validator\ConfigProvider::class,
+    \Laminas\Cache\ConfigProvider::class,
+    \Laminas\Mail\ConfigProvider::class,
+    \Laminas\Db\ConfigProvider::class,
+    \Laminas\Validator\ConfigProvider::class,
 
     // Rollun config
     \rollun\uploader\ConfigProvider::class,

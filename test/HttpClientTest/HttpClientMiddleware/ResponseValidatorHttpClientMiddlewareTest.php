@@ -12,9 +12,9 @@ use GuzzleHttp\Psr7\ServerRequest;
 use HttpClient\HttpClientMiddleware\HttpClientMiddlewarePluginManager;
 use HttpClient\HttpClientMiddleware\ResponseValidatorHttpClientMiddleware;
 use HttpClient\Example\HttpResponseValidator\Amazon\AmazonZipCodeResponseValidator;
+use Laminas\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use HttpClient\HttpResponseValidator\StatusOk;
-use Zend\Validator\ValidatorInterface;
 
 /**
  * Class UserAgentHttpClientMiddlewareTest

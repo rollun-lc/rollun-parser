@@ -3,8 +3,8 @@
 
 namespace HttpClientTest\ServerRequest;
 
+use Laminas\Diactoros\ServerRequestFactory;
 use PHPUnit\Framework\TestCase;
-use Zend\Diactoros\ServerRequestFactory;
 
 class ServerRequestFactoryTest extends TestCase
 {
