@@ -13,10 +13,9 @@
   },
   "require": {
     "php": "^8.0",
-    "guzzle/guzzle": "dev-php-8.0 as v3.9.0",
     "guzzlehttp/guzzle": "^6.5.8",
     "laminas/laminas-servicemanager": "^3.10",
-    "rollun-com/rollun-callback": "^7.0",
+    "rollun-com/rollun-callback": "^7.5",
     "rollun-com/rollun-datastore": "^9.0.3|^10.0",
     "rollun-com/rollun-dic": "^4.0",
     "rollun-com/rollun-utils": "^7.1.4|^8.0"
@@ -43,11 +42,5 @@
     "code-sniffer": "phpcs .",
     "code-beautiful": "phpcbf .",
     "server": "php -S 0.0.0.0:8000 -t public public/index.php"
-  },
-  "repositories": [
-    {
-      "type": "github",
-      "url": "git@github.com:orlyk-rollun/guzzle3.git"
-    }
-  ]
+  }
 }
